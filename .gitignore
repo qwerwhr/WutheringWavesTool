@@ -1,0 +1,76 @@
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+### Maven Wrapper (keep tracked: .mvn/wrapper/*) ###
+# Do not ignore /.mvn/ — wrapper must remain in git.
+
+### Local workspace cleanup ###
+/backup/
+
+### Local runtime / data ###
+/settings.json
+/sqlite.db
+/data/
+/data3/
+/data4/
+/assets/
+/log/
+/plugins/
+/游戏下载/
+
+### Build / temp ###
+/dependency-reduced-pom.xml
+*.log
+resource-temp*.json
+downloaded_file.json
+a.json
+
+### Archives / backups ###
+/*.zip
+/src*.zip
+/update.zip
+/WutheringWavesTool*.zip
+
+### WorkBuddy internal ###
+.workbuddy/
+
+### Runtime / scan-login data (contains account tokens) ###
+scan_accounts.json
+scan_config.json
+redemption_codes_cache.json
+
+### App lock file ###
+lock
+*.lock

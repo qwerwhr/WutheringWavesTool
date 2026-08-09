@@ -1,0 +1,71 @@
+name: diag-macos
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-jar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v4
+        with:
+          maven-version: 3.9.9
+      - name: Build fat jar
+        run: mvn -B clean package -DskipTests
+      - name: Upload fat jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: fat-jar
+          path: target/wuthering-waves-tool-1.5.2.1.jar
+          retention-days: 1
+
+  diag-macos:
+    needs: build-jar
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+      - name: Download fat jar
+        uses: actions/download-artifact@v4
+        with:
+          name: fat-jar
+          path: target
+      - name: Prepare input
+        shell: bash
+        run: |
+          mkdir -p build/input
+          cp target/wuthering-waves-tool-1.5.2.1.jar build/input/app.jar
+          ls -lh build/input/
+      - name: Package macOS (dmg) with error capture
+        shell: bash
+        run: |
+          mkdir -p dist
+          jpackage --type dmg \
+            --input build/input --main-jar app.jar \
+            --main-class cn.tealc.wutheringwavestool.Launcher \
+            --name WutheringWavesTool --app-version 1.5.2 \
+            --dest dist --vendor qwerwhr --copyright "© 2026 qwerwhr" \
+            --mac-package-identifier cn.tealc.wutheringwavestool \
+            --java-options "-XX:+UseZGC" \
+            --java-options "-Djavafx.enablePreview=true" \
+            --java-options "--enable-native-access=javafx.base,javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,com.sun.jna,com.sun.jna.platform,org.xerial.sqlitejdbc" \
+            2> /tmp/mj.log || {
+              echo "::error::MACOS_JPACKAGE_FAILED"
+              B64=$(tail -c 5000 /tmp/mj.log | base64 | tr -d '\n')
+              echo "::error::MACOSLOG $B64"
+              echo "::error::MACOSLOG_END"
+              exit 1
+            }

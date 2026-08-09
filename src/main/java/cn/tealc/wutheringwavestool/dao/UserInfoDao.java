@@ -1,0 +1,156 @@
+package cn.tealc.wutheringwavestool.dao;
+
+import cn.tealc.wutheringwavestool.base.AppInjector;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.kuro.kujiequ.model.sign.UserInfo;
+import org.apache.commons.dbutils.*;
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.sql.DataSource;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Singleton
+public class UserInfoDao {
+    private static final Logger LOG = LoggerFactory.getLogger(UserInfoDao.class);
+    private final DataSource dataSource;
+
+    @Inject
+    public UserInfoDao(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    /**
+     * 无参构造函数，供尚未迁移到 Guice 注入的旧代码使用。
+     * 新代码应通过 Guice 的 @Inject 获取实例。
+     */
+    public UserInfoDao() {
+        this.dataSource = AppInjector.getInstance(DataSource.class);
+    }
+
+    private RowProcessor getRowProcessor() {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", "id");
+        map.put("user_id", "userId");
+        map.put("role_id", "roleId");
+        map.put("token", "token");
+        map.put("is_main", "main");
+        map.put("last_sign_time", "lastSignTime");
+        map.put("is_web", "web");
+        map.put("role_name", "roleName");
+        map.put("role_url", "roleUrl");
+        map.put("creat_time", "creatTime");
+        map.put("dev_code", "devCode");
+        return new BasicRowProcessor(new BeanProcessor(map));
+    }
+
+    public List<UserInfo> getAll() {
+        QueryRunner qr = new QueryRunner(dataSource);
+        String sql = "SELECT * FROM user_info";
+        try {
+            return qr.query(sql, new BeanListHandler<>(UserInfo.class, getRowProcessor()));
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
+    public UserInfo getUserById(int id) {
+        QueryRunner qr = new QueryRunner(dataSource);
+        String sql = "SELECT * FROM user_info where id = ?";
+        try {
+            return qr.query(sql, new BeanHandler<>(UserInfo.class, getRowProcessor()), id);
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
+    public UserInfo getUserByRoleId(String roleId) {
+        QueryRunner qr = new QueryRunner(dataSource);
+        String sql = "SELECT * FROM user_info where role_id = ?";
+        try {
+            return qr.query(sql, new BeanHandler<>(UserInfo.class, getRowProcessor()), roleId);
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
+    public boolean existUserByRoleId(String roleId) {
+        QueryRunner qr = new QueryRunner(dataSource);
+        String sql = "SELECT * FROM user_info where role_id = ?";
+        try {
+            UserInfo userInfo = qr.query(sql, new BeanHandler<>(UserInfo.class, getRowProcessor()), roleId);
+            return userInfo != null;
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+            return false;
+        }
+    }
+
+    public UserInfo getMain() {
+        QueryRunner qr = new QueryRunner(dataSource);
+        String sql = "SELECT * FROM user_info where is_main=1";
+        try {
+            return qr.query(sql, new BeanHandler<>(UserInfo.class, getRowProcessor()));
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
+    public int addUser(UserInfo userInfo) {
+        String sql = "INSERT INTO user_info (user_id,role_id,token,is_main,is_web,last_sign_time,role_name,role_url,creat_time,dev_code) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        QueryRunner qr = new QueryRunner(dataSource);
+        try {
+            ResultSetHandler<Integer> rsh = new ScalarHandler<>();
+            return qr.insert(sql, rsh,
+                    userInfo.getUserId(), userInfo.getRoleId(), userInfo.getToken(), userInfo.getMain(),
+                    userInfo.getWeb(), userInfo.getLastSignTime(), userInfo.getRoleName(), userInfo.getRoleUrl(),
+                    userInfo.getCreatTime(), userInfo.getDevCode());
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+            return 0;
+        }
+    }
+
+    public int updateUser(UserInfo userInfo) {
+        String sql = "UPDATE user_info set user_id=?,role_id=?,token=?,is_main=?,is_web=?,last_sign_time =? ,role_name=?,role_url=?,creat_time=?,dev_code=? WHERE id=?";
+        QueryRunner qr = new QueryRunner(dataSource);
+        try {
+            return qr.update(sql, userInfo.getUserId(), userInfo.getRoleId(), userInfo.getToken(), userInfo.getMain(),
+                    userInfo.getWeb(), userInfo.getLastSignTime(), userInfo.getRoleName(), userInfo.getRoleUrl(),
+                    userInfo.getCreatTime(), userInfo.getDevCode(), userInfo.getId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int updateLastSignTime(Long lastSignTime, Integer id) {
+        String sql = "UPDATE user_info SET last_sign_time=? WHERE id=?";
+        QueryRunner qr = new QueryRunner(dataSource);
+        try {
+            return qr.update(sql, lastSignTime, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int deleteUser(Integer id) {
+        String sql = "DELETE FROM user_info WHERE id=?";
+        QueryRunner qr = new QueryRunner(dataSource);
+        try {
+            return qr.update(sql, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}

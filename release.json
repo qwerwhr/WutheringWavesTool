@@ -1,0 +1,17 @@
+{
+  "preRelease": null,
+  "latestRelease": {
+    "name": "wuthering-waves-tool-1.5.2.1.jar",
+    "version": "1.5.2.1",
+    "description": "迁移至 qwerwhr/WutheringWavesTool 维护。",
+    "date": "2026-08-09",
+    "force": false,
+    "urls": [
+      "https://github.com/qwerwhr/WutheringWavesTool/releases/download/v1.5.2.1/wuthering-waves-tool-1.5.2.1.jar",
+      "https://ghproxy.net/https://github.com/qwerwhr/WutheringWavesTool/releases/download/v1.5.2.1/wuthering-waves-tool-1.5.2.1.jar"
+    ],
+    "md5": "",
+    "warning": "",
+    "isPre": false
+  }
+}

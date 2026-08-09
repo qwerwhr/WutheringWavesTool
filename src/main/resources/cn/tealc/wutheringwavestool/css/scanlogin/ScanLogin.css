@@ -1,0 +1,61 @@
+.scan-login {
+    -fx-background-color: #fbfdfd;
+    -fx-font-family: "Microsoft YaHei";
+}
+
+.scan-login .title-3 {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2b3a4a;
+}
+
+.scan-login .subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6b7785;
+}
+
+.scan-login .account-table {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #bfb1f6;
+    -fx-border-radius: 6px;
+    -fx-font-size: 13px;
+}
+
+.scan-login .account-table .table-row-cell:selected {
+    -fx-background-color: #cecbd7;
+    -fx-text-fill: #b22;
+}
+
+.scan-login .field-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #4a5663;
+}
+
+.scan-login .current-account {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #37c61a;
+}
+
+.scan-login .monitor-btn {
+    -fx-background-color: #4b789a;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 22px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.scan-login .monitor-btn:hover {
+    -fx-background-color: #3d6787;
+}
+
+.scan-login .status-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #d2691e;
+    -fx-wrap-text: true;
+}
+
+.scan-login .button {
+    -fx-font-family: "Microsoft YaHei";
+}

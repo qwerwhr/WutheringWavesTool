@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" styleClass="common-child" stylesheets="@../../css/gacha/CardPool.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.tealc.wutheringwavestool.ui.gacha.CardCommonAnalysisView">
+   <children>
+      <AnchorPane fx:id="cardArea" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox fx:id="arrowBar" alignment="CENTER_LEFT" spacing="5.0" translateY="-30.0">
+               <children>
+                  <Label fx:id="leftArrow" styleClass="arrow-left" text="◀" />
+                  <Label fx:id="rightArrow" styleClass="arrow-right" text="▶" />
+               </children>
+            </HBox>
+            <HBox fx:id="contentPane" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <StackPane fx:id="emptyPane" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label styleClass="title-3" text="当前无数据，请先使用 获取 功能" translateY="-50.0" />
+         </children>
+      </StackPane>
+      <StackPane fx:id="loadingPane" layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label styleClass="title-3" text="%ui.analysis.pool.tip.loading" translateY="-50.0" />
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
