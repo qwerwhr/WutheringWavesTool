@@ -1,6 +1,6 @@
 package cn.tealc.wutheringwavestool.base.config;
 
-import cn.tealc.wutheringwavestool.base.AppConstants;
+import cn.tealc.wwt.app.update.UpdateConstants;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,7 +12,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class AppBehaviorSetting {
     private SimpleBooleanProperty devModel = new SimpleBooleanProperty(false); //开发者模式。用于测试
     private SimpleBooleanProperty support = new SimpleBooleanProperty(false);  //标志是否赞助
-    private SimpleStringProperty skipVersion = new SimpleStringProperty(AppConstants.VERSION);
+    private SimpleStringProperty skipVersion = new SimpleStringProperty(UpdateConstants.VERSION);
     private SimpleBooleanProperty checkNewVersion = new SimpleBooleanProperty(true); //检查更新
     private SimpleBooleanProperty autoStart = new SimpleBooleanProperty(false); //开机自启
     private SimpleBooleanProperty silentStart = new SimpleBooleanProperty(false); //静默启动，不显示窗口

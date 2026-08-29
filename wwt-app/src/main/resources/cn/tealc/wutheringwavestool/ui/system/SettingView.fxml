@@ -195,16 +195,6 @@
                               <FontIcon iconLiteral="anto-qq" />
                            </graphic>
                         </Button>
-                        <Button alignment="TOP_LEFT" layoutX="10.0" layoutY="359.0" mnemonicParsing="false" onAction="#toQQGroup" prefWidth="200.0" styleClass="func-btn" text="%ui.setting.communication.QQ2">
-                           <graphic>
-                              <FontIcon iconLiteral="anto-qq" />
-                           </graphic>
-                        </Button>
-                        <Button alignment="TOP_LEFT" layoutX="10.0" layoutY="404.0" mnemonicParsing="false" onAction="#toQQGroup" prefWidth="200.0" styleClass="func-btn" text="%ui.setting.communication.QQ4">
-                           <graphic>
-                              <FontIcon iconLiteral="anto-qq" />
-                           </graphic>
-                        </Button>
                         <Label layoutX="10.0" layoutY="10.0" styleClass="title-3" text="%ui.setting.sponsor.title" />
                         <Button alignment="TOP_LEFT" layoutX="10.0" layoutY="173.0" mnemonicParsing="false" onAction="#toSupport" prefWidth="200.0" styleClass="func-btn" text="%ui.setting.sponsor.cafe">
                            <graphic>

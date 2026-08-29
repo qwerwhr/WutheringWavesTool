@@ -6,13 +6,14 @@
 
     <groupId>cn.tealc</groupId>
     <artifactId>wuthering-waves-tool</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.2</version>
     <packaging>pom</packaging>
     <name>WutheringWavesTool</name>
 
     <modules>
         <module>wwt-kuro-api</module>
         <module>wwt-game-resource-core</module>
+        <module>wwt-app-update</module>
         <module>wwt-app</module>
     </modules>
 
@@ -37,6 +38,11 @@
             <dependency>
                 <groupId>cn.tealc</groupId>
                 <artifactId>wwt-game-resource-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.tealc</groupId>
+                <artifactId>wwt-app-update</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

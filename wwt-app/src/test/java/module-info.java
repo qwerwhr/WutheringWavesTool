@@ -9,4 +9,16 @@ open module WutheringWavesTool_test {
     requires org.testfx.junit5;
     requires javafx.controls;
     requires javafx.graphics;
+
+
+
+    requires org.junit.jupiter.engine;
+
+    //新增zxing
+    requires com.google.zxing;
+    requires com.google.zxing.javase;
+    requires nanohttpd;
+    requires javafx.swing;
 }
+
+

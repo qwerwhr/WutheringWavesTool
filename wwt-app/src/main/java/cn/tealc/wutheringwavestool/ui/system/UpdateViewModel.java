@@ -1,12 +1,12 @@
 package cn.tealc.wutheringwavestool.ui.system;
 
-import cn.tealc.wutheringwavestool.base.AppConstants;
+import cn.tealc.wwt.app.update.UpdateConstants;
+import cn.tealc.wwt.app.update.UpdateResult;
+import cn.tealc.wwt.app.update.model.Release;
+import cn.tealc.wwt.app.update.task.DownloadUpdateTask;
 import cn.tealc.wutheringwavestool.base.Config;
 import cn.tealc.wutheringwavestool.base.NotificationManager;
-import cn.tealc.wutheringwavestool.model.ResponseBody;
 import cn.tealc.teafx.utils.message.MessageInfo;
-import cn.tealc.wutheringwavestool.model.release.Release;
-import cn.tealc.wutheringwavestool.thread.system.AppUpdateDownloadTask;
 import cn.tealc.wutheringwavestool.util.LanguageManager;
 import de.saxsys.mvvmfx.ViewModel;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.net.http.HttpClient;
 
 /**
  * @program: WutheringWavesTool
@@ -40,16 +41,18 @@ public class UpdateViewModel implements ViewModel {
     private final SimpleStringProperty forceLabel = new SimpleStringProperty();
     private final SimpleBooleanProperty downloading = new SimpleBooleanProperty(false);
     private final Release release;
+    private final HttpClient httpClient;
     private final ObservableList<String> urls =  FXCollections.observableArrayList();
     private final SimpleIntegerProperty urlIndex = new SimpleIntegerProperty(0);
-    private AppUpdateDownloadTask currentTask;
-    public UpdateViewModel(Release release) {
+    private DownloadUpdateTask currentTask;
+    public UpdateViewModel(HttpClient httpClient, Release release) {
+        this.httpClient = httpClient;
         this.release = release;
     }
     public void initialize(){
         System.out.println("初始化");
         urls.setAll(release.getUrls());
-        version.set(String.format("V%s -> V%s", AppConstants.VERSION, release.getVersion()));
+        version.set(String.format("V%s -> V%s", UpdateConstants.VERSION, release.getVersion()));
         name.set(release.getName());
         description.set(release.getDescription());
         dateTime.set(release.getDate());
@@ -62,20 +65,23 @@ public class UpdateViewModel implements ViewModel {
         progressValue.unbind();
         progressLabel.unbind();
         packageSize.unbind();
-        currentTask = new AppUpdateDownloadTask(release, urlIndex.get());
+        currentTask = new DownloadUpdateTask(httpClient, release, urlIndex.get());
         progressValue.bind(currentTask.progressProperty());
         progressLabel.bind(currentTask.progressProperty().multiply(100).asString("%.2f%%"));
         packageSize.bind(currentTask.titleProperty());
         downloading.set(true);
         currentTask.setOnSucceeded(event -> {
             downloading.set(false);
-            ResponseBody<Boolean> value = currentTask.getValue();
+            UpdateResult<Void> value = currentTask.getValue();
+            if (value == null) {
+                return;
+            }
             if (value.getCode() == 200){
                 startUpdate();
             }else if (value.getCode() == 201){ //校验失败
-                NotificationManager.message(MessageInfo.warning(value.getMsg(),false));
+                NotificationManager.message(MessageInfo.warning(value.getMessage(),false));
             }else {
-                NotificationManager.message(MessageInfo.warning(value.getMsg(),false));
+                NotificationManager.message(MessageInfo.warning(value.getMessage(),false));
             }
         });
         currentTask.setOnCancelled(event -> {

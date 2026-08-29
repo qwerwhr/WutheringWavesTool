@@ -1,4 +1,4 @@
-## [中文](https://github.com/leck995/WutheringWavesTool/blob/new-ui/README.md) | [ENGLISH](https://github.com/leck995/WutheringWavesTool/blob/new-ui/README_EN.md)
+## [中文](https://github.com/qwerwhr/WutheringWavesTool/blob/new-ui/README.md) | [ENGLISH](https://github.com/qwerwhr/WutheringWavesTool/blob/new-ui/README_EN.md)
 ***
 
 ## Introduction
@@ -12,9 +12,9 @@
 
 WutheringWavesTool is a user-friendly tool that can replace the native launcher for daily use, while providing useful features such as card draw analysis and playtime statistics.<br>
 
-[Download Link](https://github.com/leck995/WutheringWavesTool/releases)
+[Download Link](https://github.com/qwerwhr/WutheringWavesTool/releases)
 
-[Document](https://leck995.github.io/WutheringWavesTool/#/en/README)
+[Document](https://qwerwhr.github.io/WutheringWavesTool/#/en/README)
 
 ## Features
 ___

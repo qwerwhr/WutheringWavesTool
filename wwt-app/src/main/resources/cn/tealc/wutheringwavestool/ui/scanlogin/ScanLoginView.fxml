@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane prefHeight="700.0" prefWidth="1000.0" styleClass="scan-login" stylesheets="@../../../css/scanlogin/ScanLogin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.tealc.wutheringwavestool.ui.scanlogin.ScanLoginView">
+   <children>
+      <VBox spacing="14.0">
+         <children>
+            <Label styleClass="title-3" text="%ui.scanlogin.title" />
+            <Label styleClass="subtitle" text="%ui.scanlogin.desc" wrapText="true" />
+
+            <HBox spacing="10.0">
+               <children>
+                  <Button fx:id="addAccountBtn" mnemonicParsing="false" text="%ui.scanlogin.add_account" />
+                  <Button fx:id="deleteAccountBtn" mnemonicParsing="false" text="%ui.scanlogin.delete_account" />
+                  <Button fx:id="setDefaultBtn" mnemonicParsing="false" text="%ui.scanlogin.set_default" />
+               </children>
+            </HBox>
+
+            <TableView fx:id="accountTable" prefHeight="240.0" styleClass="account-table" VBox.vgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="colIndex" editable="false" prefWidth="60.0" text="%ui.scanlogin.col_index" />
+                  <TableColumn fx:id="colUid" editable="false" prefWidth="120.0" text="%ui.scanlogin.col_uid" />
+                  <TableColumn fx:id="colName" editable="false" prefWidth="120.0" text="%ui.scanlogin.col_name" />
+                  <TableColumn fx:id="colNote" editable="true" prefWidth="180.0" text="%ui.scanlogin.col_note" />
+                  <TableColumn fx:id="colServer" editable="false" prefWidth="100.0" text="%ui.scanlogin.col_server" />
+                  <TableColumn fx:id="colLevel" editable="false" prefWidth="80.0" text="%ui.scanlogin.col_level" />
+               </columns>
+            </TableView>
+
+            <Separator />
+
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label styleClass="field-label" text="%ui.scanlogin.current_account" />
+                  <Label fx:id="selectedNameLabel" styleClass="current-account" text="%ui.scanlogin.not_selected" />
+               </children>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label styleClass="field-label" text="%ui.scanlogin.platform" />
+                  <ComboBox fx:id="platformCombo" prefWidth="140.0" />
+                  <Label styleClass="field-label" text="%ui.scanlogin.live_id" />
+                  <TextField fx:id="liveIdField" prefWidth="180.0" />
+               </children>
+            </HBox>
+
+            <HBox spacing="20.0">
+               <children>
+                  <Button fx:id="monitorScreenBtn" mnemonicParsing="false" styleClass="monitor-btn" text="%ui.scanlogin.monitor_screen" />
+                  <Button fx:id="monitorStreamBtn" mnemonicParsing="false" styleClass="monitor-btn" text="%ui.scanlogin.monitor_stream" />
+               </children>
+            </HBox>
+
+            <HBox spacing="24.0">
+               <children>
+                  <CheckBox fx:id="autoLoginCheck" mnemonicParsing="false" text="%ui.scanlogin.auto_login" />
+                  <CheckBox fx:id="autoScreenCheck" mnemonicParsing="false" text="%ui.scanlogin.auto_screen" />
+                  <CheckBox fx:id="autoExitCheck" mnemonicParsing="false" text="%ui.scanlogin.auto_exit" />
+               </children>
+            </HBox>
+
+            <Label fx:id="statusLabel" styleClass="status-label" text="%ui.scanlogin.status_idle" wrapText="true" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="24.0" right="24.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</StackPane>

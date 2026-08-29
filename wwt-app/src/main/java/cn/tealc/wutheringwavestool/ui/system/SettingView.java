@@ -3,6 +3,7 @@ package cn.tealc.wutheringwavestool.ui.system;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.controls.ToggleSwitchSkin;
 import atlantafx.base.theme.Styles;
+import cn.tealc.wwt.app.update.UpdateConstants;
 import cn.tealc.wutheringwavestool.base.AppConstants;
 import cn.tealc.wutheringwavestool.base.Config;
 import cn.tealc.wutheringwavestool.FXResourcesLoader;
@@ -154,7 +155,7 @@ public class SettingView implements FxmlView<SettingViewModel>, Initializable {
 
 
         appName.setText(Config.appTitle);
-        appVersion.setText(AppConstants.VERSION);
+        appVersion.setText(UpdateConstants.VERSION);
         appAuthor.setText(AppConstants.APP_AUTHOR);
 
 
@@ -215,7 +216,7 @@ public class SettingView implements FxmlView<SettingViewModel>, Initializable {
     @FXML
     void toWeb(ActionEvent event) {
         try {
-            Desktop.getDesktop().browse(new URI(AppConstants.URL_GITHUB));
+            Desktop.getDesktop().browse(new URI(UpdateConstants.URL_GITHUB));
         } catch (IOException | URISyntaxException e) {
             LOG.warn(e.getMessage());
         }
@@ -250,20 +251,21 @@ public class SettingView implements FxmlView<SettingViewModel>, Initializable {
     @FXML
     void toIssues(ActionEvent event) {
         try {
-            Desktop.getDesktop().browse(new URI(AppConstants.URL_GITHUB_ISSUES));
+            Desktop.getDesktop().browse(new URI(UpdateConstants.URL_GITHUB_ISSUES));
         } catch (IOException | URISyntaxException e) {
             LOG.warn(e.getMessage());
         }
     }
 
+    private static final String URL_QQ_GROUP = "https://qm.qq.com/cgi-bin/qm/qr?k=WEPIa61ix6Q7903wRetENohXT2ufVcbe&jump_from=webapi&authKey=67YG1GC3fDi6Nl/PwUwJR5O7npa8LaglgaHKHku4/4cWPyGq+j4e4HTmAOijjMyw";
+
     @FXML
     void toQQGroup(ActionEvent event) {
-        Button button = (Button) event.getSource();
-        Clipboard clipboard = Clipboard.getSystemClipboard();
-        ClipboardContent content = new ClipboardContent();
-        content.putString(button.getText());
-        clipboard.setContent(content);
-        MvvmFX.getNotificationCenter().publish(NotificationKey.MESSAGE, MessageInfo.success(LanguageManager.getString("ui.setting.communication.QQ.tip")));
+        try {
+            Desktop.getDesktop().browse(new URI(URL_QQ_GROUP));
+        } catch (IOException | URISyntaxException e) {
+            LOG.warn(e.getMessage());
+        }
     }
 
     @FXML

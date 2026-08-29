@@ -7,10 +7,13 @@ import cn.tealc.wutheringwavestool.base.NotificationKey;
 import cn.tealc.wutheringwavestool.base.NotificationManager;
 import cn.tealc.wutheringwavestool.model.ResponseBody;
 import cn.tealc.teafx.utils.message.MessageInfo;
-import cn.tealc.wutheringwavestool.model.release.Release;
+import cn.tealc.wwt.app.update.UpdateContext;
+import cn.tealc.wwt.app.update.UpdateConstants;
+import cn.tealc.wwt.app.update.UpdateResult;
+import cn.tealc.wwt.app.update.model.Release;
+import cn.tealc.wwt.app.update.task.CheckVersionTask;
 import cn.tealc.wutheringwavestool.service.AutoStartService;
 import cn.tealc.wutheringwavestool.thread.system.CheckGameConfigTask;
-import cn.tealc.wutheringwavestool.thread.system.AppCheckVersionTask;
 import cn.tealc.wutheringwavestool.util.LanguageManager;
 import cn.tealc.wutheringwavestool.util.LocalResourcesManager;
 import de.saxsys.mvvmfx.MvvmFX;
@@ -29,6 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.http.HttpClient;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Locale;
@@ -163,9 +167,29 @@ public class SettingViewModel implements ViewModel, SceneLifecycle {
     }
 
     public void checkVersion() {
-        AppCheckVersionTask task = new AppCheckVersionTask(false);
+        HttpClient httpClient = AppInjector.getInstance(HttpClient.class);
+        UpdateContext context = new UpdateContext() {
+            @Override
+            public boolean isDev() {
+                return Config.setting().isDevModel();
+            }
+
+            @Override
+            public String currentVersion() {
+                return UpdateConstants.VERSION;
+            }
+
+            @Override
+            public String skipVersion() {
+                return null;
+            }
+        };
+        CheckVersionTask task = new CheckVersionTask(httpClient, context);
         task.setOnSucceeded(workerStateEvent -> {
-            ResponseBody<Release> value = task.getValue();
+            UpdateResult<Release> value = task.getValue();
+            if (value == null) {
+                return;
+            }
             if (value.getCode() == 200) {
                 MvvmFX.getNotificationCenter().publish(NotificationKey.NOTIFICATION_SHOW_UPDATE, value.getData());
             } else if (value.getCode() == 1) {

@@ -154,6 +154,20 @@
     "showBg": false
   },
   {
+    "id": 1099,
+    "title": "ui.scanlogin.nav.title",
+    "icon": "mdal-account_box",
+    "visible": true,
+    "order": 12,
+    "kujiequ": false,
+    "viewClass": "cn.tealc.wutheringwavestool.ui.scanlogin.ScanLoginView",
+    "viewModelClass": null,
+    "bottom": false,
+    "fxml": true,
+    "diy": true,
+    "showBg": false
+  },
+  {
     "id": 1050,
     "title": "ui.main.button.nav.type10",
     "icon": "mdal-account_box",

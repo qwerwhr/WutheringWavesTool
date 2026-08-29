@@ -1,5 +1,6 @@
 package cn.tealc.wutheringwavestool.ui.system;
 
+import cn.tealc.wwt.app.update.UpdateConstants;
 import cn.tealc.wutheringwavestool.WwtApp;
 import cn.tealc.wutheringwavestool.base.NotificationManager;
 import cn.tealc.teafx.utils.message.MessageInfo;
@@ -188,7 +189,7 @@ public class UpdateView implements FxmlView<UpdateViewModel>, Initializable {
     @FXML
     void toReleaseWebsite(ActionEvent event) {
         try {
-            Desktop.getDesktop().browse(new URI("https://github.com/leck995/WutheringWavesTool/releases"));
+            Desktop.getDesktop().browse(new URI(UpdateConstants.URL_GITHUB + "/releases"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (URISyntaxException e) {

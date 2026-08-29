@@ -37,6 +37,12 @@ open module cn.tealc.wutheringwavestool {
     requires cn.tealc.wwt.kuro.api;
 
     requires cn.tealc.wwt.game.resource.core;
+    requires cn.tealc.wwt.app.update;
+    requires com.google.zxing;
+    requires com.google.zxing.javase;
+
+
+    requires nanohttpd;
 
 
     exports cn.tealc.wutheringwavestool;
@@ -69,5 +75,7 @@ open module cn.tealc.wutheringwavestool {
     exports cn.tealc.wutheringwavestool.ui.system;
     exports cn.tealc.wutheringwavestool.ui.component.dialog;
     exports cn.tealc.wutheringwavestool.service;
+    exports cn.tealc.wutheringwavestool.ui.scanlogin;
+    exports com.kuro.scan;
 
 }

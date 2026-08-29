@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<jpackage-state version="26.0.2" platform="windows">
+  <app-version>1.6.2</app-version>
+  <main-launcher name="WutheringWavesTool">
+    <description>WutheringWavesTool</description>
+  </main-launcher></jpackage-state>

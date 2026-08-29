@@ -6,6 +6,7 @@ import cn.tealc.teafx.utils.AnchorPaneUtil;
 import cn.tealc.wutheringwavestool.WwtApp;
 import cn.tealc.wutheringwavestool.FXResourcesLoader;
 import cn.tealc.wutheringwavestool.base.AppConstants;
+import cn.tealc.wutheringwavestool.base.AppInjector;
 import cn.tealc.wutheringwavestool.base.Config;
 import cn.tealc.wutheringwavestool.base.NotificationManager;
 import cn.tealc.wutheringwavestool.service.ManagedTask;
@@ -14,7 +15,7 @@ import cn.tealc.wutheringwavestool.base.NotificationKey;
 import cn.tealc.wutheringwavestool.util.AlterBuilder;
 import javafx.concurrent.Task;
 import cn.tealc.teafx.utils.message.MessageInfo;
-import cn.tealc.wutheringwavestool.model.release.Release;
+import cn.tealc.wwt.app.update.model.Release;
 import cn.tealc.wutheringwavestool.model.system.NavData;
 import cn.tealc.wutheringwavestool.thread.system.ui.MainBackgroundTask;
 import cn.tealc.wutheringwavestool.ui.gacha.CardAnalysisBaseView;
@@ -61,6 +62,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.http.HttpClient;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
@@ -502,7 +504,8 @@ public class MainView implements Initializable, FxmlView<MainViewModel> {
 
 
     private void showUpdateView(Release release) {
-        ViewTuple<UpdateView, UpdateViewModel> viewTuple = FluentViewLoader.fxmlView(UpdateView.class).viewModel(new UpdateViewModel(release)).load();
+        HttpClient httpClient = AppInjector.getInstance(HttpClient.class);
+        ViewTuple<UpdateView, UpdateViewModel> viewTuple = FluentViewLoader.fxmlView(UpdateView.class).viewModel(new UpdateViewModel(httpClient, release)).load();
         StackPane view = (StackPane) viewTuple.getView();
         view.setBackground(bgPane02.getBackground());
 
